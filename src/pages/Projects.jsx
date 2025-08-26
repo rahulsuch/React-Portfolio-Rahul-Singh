@@ -49,8 +49,8 @@ const projects = [
     id: 1,
     title: "Portfolio Website",
     images: [
-      "/src/assets/Home_screenshot.png",
-      "/src/assets/About_screenshot.png",
+      "../../public/assets/Home_screenshot.png",
+      "../../public/assets/About_screenshot.png",
     ],
     description:
       "A modern portfolio built using React, Tailwind, and Three.js with animated transitions and responsive layout.",
@@ -61,14 +61,14 @@ const projects = [
     id: 2,
     title: "API Dashboard",
     images: [
-      "/src/assets/Dashboard_Login.png",
-      "/src/assets/Certificate_Screenshot.png",
-      "/src/assets/MIS_HomeScreenshot.png",
-      "/src/assets/ReportList_Screenshot.png",
-      "/src/assets/ReportForm_Screenshot.png",
-      "/src/assets/Dashboard_Screenshot.png",
-      "/src/assets/Dashboard1_Screenshot.png",
-      "/src/assets/Dashboard2_Screenshot.png",
+      "../../public/assets/Dashboard_Login.png",
+      "../../public/assets/Certificate_Screenshot.png",
+      "../../public/assets/MIS_HomeScreenshot.png",
+      "../../public/assets/ReportList_Screenshot.png",
+      "../../public/assets/ReportForm_Screenshot.png",
+      "../../public/assets/Dashboard_Screenshot.png",
+      "../../public/assets/Dashboard1_Screenshot.png",
+      "../../public/assets/Dashboard2_Screenshot.png",
     ],
     description:
       "JWT-authenticated dashboard integrating 100+ REST APIs with Redux and reusable components.",
@@ -344,7 +344,7 @@ const Projects = () => {
                 >
                   {tech === "Three.js" ? (
                     <img
-                      src="/src/assets/icons/threedotjs.svg"
+                      src="../../public/assets/icons/threedotjs.svg"
                       alt="Three.js"
                       className="w-5 h-5"
                     />

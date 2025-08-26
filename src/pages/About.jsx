@@ -1,17 +1,21 @@
 import React from "react";
 import { motion } from "framer-motion";
 import {
-  FaReact, FaHtml5, FaCss3Alt, FaJs, FaGitAlt, FaGitlab, FaBootstrap, FaJenkins,
+  FaReact,
+  FaHtml5,
+  FaCss3Alt,
+  FaJs,
+  FaGitAlt,
+  FaGitlab,
+  FaBootstrap,
+  FaJenkins,
 } from "react-icons/fa";
-import {
-  SiRedux, SiJson, SiTailwindcss, SiPostman,
-} from "react-icons/si";
+import { SiRedux, SiJson, SiTailwindcss, SiPostman } from "react-icons/si";
 import { TbApi, TbCube } from "react-icons/tb";
 import { MdOutlineBugReport, MdDashboardCustomize } from "react-icons/md";
 import { RiDashboardLine, RiKeyFill } from "react-icons/ri";
 import { BsDiagram3 } from "react-icons/bs";
 import { PiCirclesThreeBold } from "react-icons/pi";
-import profilePic from "../assets/rahul_profile.png";
 
 const About = () => {
   const keySkills = [
@@ -46,8 +50,15 @@ const About = () => {
   ];
 
   const bgColors = [
-    "bg-red-200", "bg-blue-200", "bg-green-200", "bg-yellow-200",
-    "bg-purple-200", "bg-pink-200", "bg-orange-200", "bg-teal-200", "bg-indigo-200",
+    "bg-red-200",
+    "bg-blue-200",
+    "bg-green-200",
+    "bg-yellow-200",
+    "bg-purple-200",
+    "bg-pink-200",
+    "bg-orange-200",
+    "bg-teal-200",
+    "bg-indigo-200",
   ];
 
   return (
@@ -58,7 +69,6 @@ const About = () => {
       transition={{ duration: 0.7, ease: "easeOut" }}
     >
       <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-col lg:flex-row items-center lg:items-center gap-10">
-        
         {/* Image Section */}
         <motion.div
           initial={{ opacity: 0, x: -60 }}
@@ -68,7 +78,7 @@ const About = () => {
         >
           {/* Mobile circular image */}
           <img
-            src={profilePic}
+            src="../../public/assets/rahul_profile.png"
             alt="Profile"
             className="block md:hidden w-[80vw] h-[80vw] object-cover rounded-full mx-auto mb-6"
           />
@@ -76,7 +86,7 @@ const About = () => {
           {/* Desktop/Tablet image (3:4 ratio) */}
           <div className="hidden md:block aspect-[3/4] w-[80%] lg:w-full lg:max-w-[360px] xl:max-w-[400px] overflow-hidden rounded-lg shadow-lg">
             <img
-              src={profilePic}
+              src="../../public/assets/rahul_profile.png"
               alt="Profile"
               className="w-full h-full object-cover rounded-lg"
             />
@@ -90,19 +100,28 @@ const About = () => {
           transition={{ duration: 1 }}
           className="flex-1 w-full flex flex-col"
         >
-          <h2 className="text-3xl font-bold mb-4 text-center lg:text-left">About Me</h2>
+          <h2 className="text-3xl font-bold mb-4 text-center lg:text-left">
+            About Me
+          </h2>
           <p className="text-lg mb-6 leading-relaxed text-center lg:text-left">
-            Frontend developer with over 3.5 years of experience building scalable, intuitive web applications using React, Redux, and modern styling frameworks. Focused on performance, clean UI, API integration, and long-term maintainability.
+            Frontend developer with over 3.5 years of experience building
+            scalable, intuitive web applications using React, Redux, and modern
+            styling frameworks. Focused on performance, clean UI, API
+            integration, and long-term maintainability.
           </p>
 
           {/* Technical Skills */}
           <div className="mb-6">
-            <h3 className="text-xl font-semibold mb-2 text-center lg:text-left">Technical Skills</h3>
+            <h3 className="text-xl font-semibold mb-2 text-center lg:text-left">
+              Technical Skills
+            </h3>
             <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
               {keySkills.map((skill, i) => (
                 <motion.span
                   key={i}
-                  className={`text-sm px-3 py-2 rounded-xl shadow-sm font-medium text-gray-900 dark:text-gray-900 flex items-center gap-2 ${bgColors[i % bgColors.length]} dark:bg-white`}
+                  className={`text-sm px-3 py-2 rounded-xl shadow-sm font-medium text-gray-900 dark:text-gray-900 flex items-center gap-2 ${
+                    bgColors[i % bgColors.length]
+                  } dark:bg-white`}
                   whileHover={{ scale: 1.1, rotate: 1 }}
                   transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 >
@@ -114,7 +133,9 @@ const About = () => {
 
           {/* Soft Skills */}
           <div>
-            <h3 className="text-xl font-semibold mb-2 text-center lg:text-left">Soft Skills</h3>
+            <h3 className="text-xl font-semibold mb-2 text-center lg:text-left">
+              Soft Skills
+            </h3>
             <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
               {softSkills.map((tag, i) => (
                 <motion.span
