@@ -78,7 +78,7 @@ const About = () => {
         >
           {/* Mobile circular image */}
           <img
-            src="../../public/assets/rahul_profile.png"
+            src={`${import.meta.env.VITE_IMAGE_SRC}rahul_profile.png`}
             alt="Profile"
             className="block md:hidden w-[80vw] h-[80vw] object-cover rounded-full mx-auto mb-6"
           />
@@ -86,7 +86,7 @@ const About = () => {
           {/* Desktop/Tablet image (3:4 ratio) */}
           <div className="hidden md:block aspect-[3/4] w-[80%] lg:w-full lg:max-w-[360px] xl:max-w-[400px] overflow-hidden rounded-lg shadow-lg">
             <img
-              src="../../public/assets/rahul_profile.png"
+              src={`${import.meta.env.VITE_IMAGE_SRC}rahul_profile.png`}
               alt="Profile"
               className="w-full h-full object-cover rounded-lg"
             />
