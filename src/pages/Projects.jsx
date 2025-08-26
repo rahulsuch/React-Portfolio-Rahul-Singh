@@ -18,6 +18,7 @@ import {
   SiJsonwebtokens,
 } from "react-icons/si";
 import { MdClose } from "react-icons/md";
+// import env from "react-dotenv";
 
 const iconMap = {
   React: <FaReact className="text-sky-500" size={22} />,
@@ -49,8 +50,8 @@ const projects = [
     id: 1,
     title: "Portfolio Website",
     images: [
-      "../../public/assets/Home_screenshot.png",
-      "../../public/assets/About_screenshot.png",
+      import.meta.env.VITE_IMAGE_SRC + "About_screenshot.png",
+      import.meta.env.VITE_IMAGE_SRC + "Home_screenshot.png",
     ],
     description:
       "A modern portfolio built using React, Tailwind, and Three.js with animated transitions and responsive layout.",
@@ -61,14 +62,14 @@ const projects = [
     id: 2,
     title: "API Dashboard",
     images: [
-      "../../public/assets/Dashboard_Login.png",
-      "../../public/assets/Certificate_Screenshot.png",
-      "../../public/assets/MIS_HomeScreenshot.png",
-      "../../public/assets/ReportList_Screenshot.png",
-      "../../public/assets/ReportForm_Screenshot.png",
-      "../../public/assets/Dashboard_Screenshot.png",
-      "../../public/assets/Dashboard1_Screenshot.png",
-      "../../public/assets/Dashboard2_Screenshot.png",
+      import.meta.env.VITE_IMAGE_SRC + "Dashboard_Login.png",
+      import.meta.env.VITE_IMAGE_SRC + "Certificate_Screenshot.png",
+      import.meta.env.VITE_IMAGE_SRC + "MIS_HomeScreenshot.png",
+      import.meta.env.VITE_IMAGE_SRC + "ReportList_Screenshot.png",
+      import.meta.env.VITE_IMAGE_SRC + "ReportForm_Screenshot.png",
+      import.meta.env.VITE_IMAGE_SRC + "Dashboard_Screenshot.png",
+      import.meta.env.VITE_IMAGE_SRC + "Dashboard1_Screenshot.png",
+      import.meta.env.VITE_IMAGE_SRC + "Dashboard2_Screenshot.png",
     ],
     description:
       "JWT-authenticated dashboard integrating 100+ REST APIs with Redux and reusable components.",
