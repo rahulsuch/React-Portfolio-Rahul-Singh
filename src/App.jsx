@@ -1,9 +1,5 @@
 import React, { useState, lazy, Suspense } from "react";
 import Navbar from "./components/Navbar";
-// import Home from "./pages/Home";
-// import About from "./pages/About";
-// import Projects from "./pages/Projects";
-// import Contact from "./pages/Contact";
 import { AnimatePresence, motion } from "framer-motion";
 
 const Home = lazy(() => import("./pages/Home"));
