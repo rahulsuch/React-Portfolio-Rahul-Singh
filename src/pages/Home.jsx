@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FaFolderOpen, FaEnvelope, FaComments } from "react-icons/fa";
-import AnimatedBackground from "../components/AnimatedBackground";
+// import AnimatedBackground from "../components/AnimatedBackground";
 import Chatbot from "react-chatbot-kit";
 import "react-chatbot-kit/build/main.css";
 import config from "../components/chatbot/chatbotconfig";
@@ -14,7 +14,7 @@ const Home = ({ setActivePage }) => {
   return (
     <div className="relative w-full min-h-screen overflow-hidden text-black">
       <div className="relative w-full h-full">
-        <AnimatedBackground />
+        {/* <AnimatedBackground /> */}
 
         <motion.div
           className="relative z-10 max-w-3xl mx-auto flex flex-col items-center justify-center min-h-screen text-center px-4"
@@ -83,12 +83,12 @@ const Home = ({ setActivePage }) => {
               />
             </div>
           )}
-          <button
+          {/* <button
             onClick={() => setShowChat(!showChat)}
             className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg"
           >
             <FaComments size={20} />
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

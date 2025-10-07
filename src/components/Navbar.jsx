@@ -1,26 +1,57 @@
 import React from "react";
-import { FaLinkedin } from "react-icons/fa";
+import { FaLinkedin, FaMoon, FaSun } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const Navbar = ({ activePage, setActivePage, setHoveredPage }) => {
   const links = ["home", "about", "projects", "contact"];
 
+  var classes = document.body.classList;
+  console.log(classes);
+
   return (
     <>
       {/* Desktop & Tablet Vertical Navbar */}
       <div
-        className="hidden md:flex flex-col justify-between items-center h-screen w-[7vw] fixed top-0 left-0 bg-gray-100 dark:bg-gray-900 border-r border-gray-300 dark:border-gray-700 z-50 px-2 py-6"
+        className="hidden md:flex flex-col justify-between items-center h-screen w-[9vw] fixed top-0 left-0 bg-gray-100 dark:bg-gray-900 border-r border-gray-300 dark:border-gray-700 z-50 px-2 py-6"
         style={{ boxShadow: "4px 0 8px rgba(0, 0, 0, 0.1)" }}
       >
         {/* Nav Links */}
         <ul className="space-y-8">
+          <li
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              cursor: "pointer",
+              borderRadius: "8px",
+              padding: "6px 12px",
+              transition: "background-color 0.3s, transform 0.2s",
+              backgroundColor: "rgba(255, 255, 255, 0.6)",
+              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+            }}
+            onClick={() => {
+              document.body.classList.toggle("dark");
+            }}
+          >
+            {/* {classes.includes("dark") ? ( */}
+              <FaSun className="text-yellow-400" size={18} />
+            {/* ) : (
+              <FaMoon className="text-white-500" size={18} />
+            )} */}
+            <span
+              style={{ fontSize: ".5em" }}
+              className="text-gray-700 dark:text-gray-100"
+            >
+              Toggle Theme
+            </span>
+          </li>
           {links.map((link) => (
             <li key={link}>
               <button
                 onMouseEnter={() => link !== activePage && setHoveredPage(link)}
                 onMouseLeave={() => setHoveredPage(null)}
                 onClick={() => setActivePage(link)}
-                className={`text-xs font-semibold transition duration-200 origin-left ${
+                className={`text-xs font-semibold transition duration-200 origin-left pl-4 ${
                   activePage === link
                     ? "scale-110 text-blue-600"
                     : "hover:scale-110 text-gray-700 dark:text-gray-300"
@@ -31,7 +62,6 @@ const Navbar = ({ activePage, setActivePage, setHoveredPage }) => {
             </li>
           ))}
         </ul>
-
         {/* Social Links */}
         <div className="flex flex-col items-center space-y-6">
           <a

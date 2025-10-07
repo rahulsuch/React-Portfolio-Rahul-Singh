@@ -1,6 +1,7 @@
 import React, { useState, lazy, Suspense } from "react";
 import Navbar from "./components/Navbar";
 import { AnimatePresence, motion } from "framer-motion";
+import { BiSolidSun } from "react-icons/bi";
 
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
@@ -10,6 +11,7 @@ const Contact = lazy(() => import("./pages/Contact"));
 const App = () => {
   const [activePage, setActivePage] = useState("home");
   const [hoveredPage, setHoveredPage] = useState(null); // renamed from 'hovered'
+  const [theme, setTheme] = useState("light");
 
   const shouldShift = hoveredPage && hoveredPage !== activePage;
 
@@ -22,6 +24,7 @@ const App = () => {
         setActivePage={setActivePage}
         setHoveredPage={setHoveredPage} // renamed here
       />
+      <BiSolidSun />
       <Suspense fallback={<div className="flex items-center justify-center w-full h-screen">Loading...</div>}>
         <div
           className={`ml-0 sm:ml-[7vw] w-full sm:w-[calc(100vw-7vw)] transition-transform duration-300 ${shouldShift ? "translate-x-[-7vw]" : ""
