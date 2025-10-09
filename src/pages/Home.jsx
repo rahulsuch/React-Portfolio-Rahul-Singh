@@ -12,21 +12,21 @@ const Home = ({ setActivePage }) => {
   const [showChat, setShowChat] = useState(false);
 
   return (
-    <div className="relative w-full min-h-screen overflow-hidden text-black">
+    <div className="relative w-full min-h-screen overflow-hidden text-black bg-white dark:bg-gray-900 dark:text-white transition-colors duration-500">
       <div className="relative w-full h-full">
         {/* <AnimatedBackground /> */}
 
         <motion.div
-          className="relative z-10 max-w-3xl mx-auto flex flex-col items-center justify-center min-h-screen text-center px-4"
+          className="relative z-10 max-w-3xl mx-auto flex flex-col items-center justify-center min-h-screen text-center px-4 "
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-balance">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-balance dark:text-white">
             👋 Hi, I'm Rahul Singh
           </h1>
 
-          <p className="text-base sm:text-lg md:text-xl text-gray-800 mb-6 text-balance leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-gray-800 mb-6 text-balance leading-relaxed dark:text-gray-300">
             A frontend developer passionate about building beautiful,
             high-performance UIs using ⚛️ React, Redux, SCSS, and TailwindCSS.
           </p>

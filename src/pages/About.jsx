@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { lazy } from "react";
 import {
   FaReact,
   FaHtml5,
@@ -18,6 +19,10 @@ import { BsDiagram3 } from "react-icons/bs";
 import { PiCirclesThreeBold } from "react-icons/pi";
 
 const About = () => {
+  const imagecss = {
+    // backgroundColor: "transparent",
+    // mixBlendMode: "multiply" /* or 'overlay' for softer edges */,
+  };
   const keySkills = [
     { name: "AGILE", icon: <BsDiagram3 /> },
     { name: "HTML", icon: <FaHtml5 /> },
@@ -63,7 +68,7 @@ const About = () => {
 
   return (
     <motion.section
-      className="min-h-screen w-full flex items-center px-4 md:px-10 py-10 bg-slate-200 text-gray-900 dark:bg-[#121212] dark:text-white transition-colors duration-500"
+      className="min-h-screen w-full flex items-center px-4 md:px-10 py-10 text-gray-900 dark:bg-[#121212] dark:text-white transition-colors duration-500"
       initial={{ opacity: 0, scale: 0.97 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.7, ease: "easeOut" }}
@@ -80,6 +85,7 @@ const About = () => {
           <img
             src={`${import.meta.env.VITE_IMAGE_SRC}rahul_profile.png`}
             alt="Profile"
+            loading="lazy"
             className="block md:hidden w-[80vw] h-[80vw] object-cover rounded-full mx-auto mb-6"
           />
 
@@ -89,6 +95,8 @@ const About = () => {
               src={`${import.meta.env.VITE_IMAGE_SRC}rahul_profile.png`}
               alt="Profile"
               className="w-full h-full object-cover rounded-lg"
+              loading="lazy"
+              style={imagecss}
             />
           </div>
         </motion.div>
@@ -121,7 +129,7 @@ const About = () => {
                   key={i}
                   className={`text-sm px-3 py-2 rounded-xl shadow-sm font-medium text-gray-900 dark:text-gray-900 flex items-center gap-2 ${
                     bgColors[i % bgColors.length]
-                  } dark:bg-white`}
+                  } cursor-pointer`}
                   whileHover={{ scale: 1.1, rotate: 1 }}
                   transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 >
@@ -140,7 +148,7 @@ const About = () => {
               {softSkills.map((tag, i) => (
                 <motion.span
                   key={i}
-                  className="bg-blue-100 text-blue-800 dark:bg-blue-300 dark:text-blue-900 text-sm px-3 py-1 rounded-full"
+                  className="bg-blue-100 text-blue-800 dark:bg-blue-200 dark:text-black text-sm px-3 py-1 rounded-full"
                   whileHover={{ scale: 1.1 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >

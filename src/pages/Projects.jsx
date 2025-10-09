@@ -210,13 +210,13 @@ const Projects = () => {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.4 }}
                 className={`
-                  px-4 py-3 text-white w-full bg-black/60 backdrop-blur-md
+                  px-4 py-3 text-white w-full bg-black/40 hover:bg-black/90 transition-all duration-300
                   sm:absolute sm:inset-0 sm:opacity-0 sm:group-hover:opacity-100 sm:flex sm:flex-col sm:justify-center sm:items-center
                   flex flex-col mt-[calc(100%+1rem)] sm:mt-0
                 `}
               >
                 <div className="text-center w-full">
-                  <p className="text-sm mb-2 text-gray-200 leading-snug">
+                  <p className="text-sm mb-2 text-gray-100 leading-snug visibility-hidden  group-hover:visibility-visible">
                     {project.description.slice(0, 100)}...
                   </p>
 
@@ -227,7 +227,7 @@ const Projects = () => {
                         className={`text-xs px-2 py-1 rounded-full ${
                           selectedSkills.includes(tech)
                             ? "bg-purple-500 text-white"
-                            : "bg-white/20 text-white"
+                            : "bg-white text-black"
                         }`}
                       >
                         {tech}

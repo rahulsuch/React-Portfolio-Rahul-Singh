@@ -2,11 +2,10 @@ import React, { useState, lazy, Suspense } from "react";
 import Navbar from "./components/Navbar";
 import { AnimatePresence, motion } from "framer-motion";
 import { BiSolidSun } from "react-icons/bi";
-
-const Home = lazy(() => import("./pages/Home"));
-const About = lazy(() => import("./pages/About"));
-const Projects = lazy(() => import("./pages/Projects"));
-const Contact = lazy(() => import("./pages/Contact"));
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Projects from "./pages/Projects";
+import Contact from "./pages/Contact";
 
 const App = () => {
   const [activePage, setActivePage] = useState("home");
