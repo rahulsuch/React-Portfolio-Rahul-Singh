@@ -7,14 +7,17 @@ import "react-chatbot-kit/build/main.css";
 import config from "../components/chatbot/chatbotconfig";
 import MessageParser from "../components/chatbot/MessageParser";
 import ActionProvider from "../components/chatbot/ActionProvider";
+import SpriteWalker from "../components/SpriteWalker/SpriteWalker";
 
 const Home = ({ setActivePage }) => {
   const [showChat, setShowChat] = useState(false);
 
   return (
     <div className="relative w-full min-h-screen overflow-hidden text-black bg-white dark:bg-gray-900 dark:text-white transition-colors duration-500">
+      <SpriteWalker />
       <div className="relative w-full h-full">
         {/* <AnimatedBackground /> */}
+        
 
         <motion.div
           className="relative z-10 max-w-3xl mx-auto flex flex-col items-center justify-center min-h-screen text-center px-4 "

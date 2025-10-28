@@ -26,7 +26,7 @@ const App = () => {
       <BiSolidSun />
       <Suspense fallback={<div className="flex items-center justify-center w-full h-screen">Loading...</div>}>
         <div
-          className={`ml-0 sm:ml-[7vw] w-full sm:w-[calc(100vw-7vw)] transition-transform duration-300 ${shouldShift ? "translate-x-[-7vw]" : ""
+          className={`ml-0 w-full transition-transform duration-300 ${shouldShift ? "translate-x-[-7vw]" : ""
             }`}
         >
           <AnimatePresence mode="wait">
