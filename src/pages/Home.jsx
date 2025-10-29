@@ -9,6 +9,7 @@ import ActionProvider from "../components/chatbot/ActionProvider";
 import AnimatedLandscapeBackground from "../components/AnimatedLandscapeBackground";
 import SpriteWalker from "../components/SpriteWalker/SpriteWalker";
 import { useChat } from "../context/ChatContext"; // 👈 import context
+import RotatingText from "../components/RotatingText/RotatingText";
 
 const techList = [
   "React",
@@ -80,59 +81,95 @@ const Home = React.memo(({ setActivePage }) => {
     >
       {!isMobile && <SpriteWalker />}
 
-      <div className="relative flex flex-col items-center justify-center min-h-screen text-center px-4 z-10">
+      <div className="relative flex flex-col items-center justify-center min-h-screen px-4 z-10">
         <AnimatedLandscapeBackground />
-        <motion.h1
-          variants={animation.item}
-          className="text-3xl sm:text-4xl md:text-4xl font-bold mb-4"
-        >
-          👋 Hi, I'm Rahul Singh
-        </motion.h1>
+        <div className="text-">
+          <motion.h1
+            variants={animation.item}
+            className="text-3xl sm:text-4xl md:text-4xl font-bold mb-4 flex items-center gap-2 flex-wrap"
+          >
+            Hi, I'm
+            <RotatingText
+              texts={[
+                "Rahul Singh",
+                "a Frontend Developer",
+                "a UI/UX Designer",
+              ]}
+              mainClassName="px-3 sm:px-2 md:px-3 bg-[#183d1eff] dark:bg-white text-white dark:text-black overflow-hidden py-0.5 sm:py-1 md:py-1 justify-center rounded-lg max-h-12 min-w-[400px] sm:min-w-[220px] md:min-w-[250px] flex items-center"
+              staggerFrom={"last"}
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-120%" }}
+              staggerDuration={0.025}
+              splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+              transition={{ type: "spring", damping: 30, stiffness: 400 }}
+              rotationInterval={2000}
+            />
+          </motion.h1>
 
-        <motion.p
-          variants={animation.item}
-          className="text-base sm:text-lg md:text-l text-gray-800 mb-6 leading-relaxed dark:text-gray-300 max-w-xl"
-        >
-          A frontend developer passionate about building beautiful,
-          high-performance UIs using ⚛️ React, Redux, SCSS, and TailwindCSS.
-        </motion.p>
+          <motion.p
+            variants={animation.item}
+            className="text-base sm:text-lg md:text-l text-gray-800 mb-6 leading-relaxed dark:text-gray-300 max-w-2xl"
+          >
+            A frontend developer passionate about building beautiful,
+            high-performance UIs using React, Redux, SCSS, and TailwindCSS.
+          </motion.p>
 
-        <motion.div
-          variants={animation.item}
-          className="flex flex-wrap justify-center gap-2 mb-6 max-w-[70vw]"
-        >
-          {techList.map((tech) => (
-            <span
-              key={tech}
-              className="text-sm px-3 py-1 bg-blue-100 text-blue-700 rounded-full font-medium"
+          <motion.div
+            variants={animation.item}
+            className="flex flex-wrap gap-2 mb-6 max-w-[70vw]"
+          >
+            {techList.map((tech) => (
+              <span
+                key={tech}
+                className="text-sm px-3 py-1 bg-white dark:bg-white text-grey-900 dark:text-black rounded-full font-medium"
+              >
+                {tech}
+              </span>
+            ))}
+          </motion.div>
+
+          <motion.div
+            variants={animation.item}
+            className="flex flex-wrap gap-4"
+          >
+            <motion.button
+              onMouseMove={(e) => {
+                const { offsetX, offsetY, target } = e.nativeEvent;
+                const x = (offsetX - target.offsetWidth / 2) / 5;
+                const y = (offsetY - target.offsetHeight / 2) / 5;
+                e.target.style.transform = `rotateX(${y}deg) rotateY(${-x}deg)`;
+              }}
+              onMouseLeave={(e) =>
+                (e.target.style.transform = "rotateX(0) rotateY(0)")
+              }
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className="relative flex items-center justify-center max-h-fit px-4 py-3 gap-2 rounded-2xl bg-gradient-to-r from-violet-600 to-blue-600 text-white font-semibold shadow-lg"
+              onClick={() => setActivePage("projects")}
             >
-              {tech}
-            </span>
-          ))}
-        </motion.div>
+              <FaFolderOpen /> View Projects
+            </motion.button>
 
-        <motion.div
-          variants={animation.item}
-          className="flex flex-wrap justify-center gap-4"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setActivePage("projects")}
-            className="flex items-center justify-center gap-2 bg-blue-600 text-white px-5 py-2 rounded shadow hover:bg-blue-700 transition min-w-[140px]"
-          >
-            <FaFolderOpen /> View Projects
-          </motion.button>
-
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setActivePage("contact")}
-            className="flex items-center justify-center gap-2 bg-red-700 text-white px-5 py-2 rounded shadow hover:bg-gray-800 transition min-w-[140px]"
-          >
-            <FaEnvelope /> Contact Me
-          </motion.button>
-        </motion.div>
+            <motion.button
+              onMouseMove={(e) => {
+                const { offsetX, offsetY, target } = e.nativeEvent;
+                const x = (offsetX - target.offsetWidth / 2) / 5;
+                const y = (offsetY - target.offsetHeight / 2) / 5;
+                e.target.style.transform = `rotateX(${y}deg) rotateY(${-x}deg)`;
+              }}
+              onMouseLeave={(e) =>
+                (e.target.style.transform = "rotateX(0) rotateY(0)")
+              }
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className="relative px-4 py-3 flex items-center justify-center gap-2 max-h-fit rounded-2xl bg-gradient-to-r from-violet-600 to-blue-600 text-white font-semibold shadow-lg"
+              onClick={() => setActivePage("contact")}
+            >
+              <FaEnvelope /> Contact Me
+            </motion.button>
+          </motion.div>
+        </div>
       </div>
 
       {/* Chatbot Modal */}
