@@ -1,15 +1,16 @@
 import React, { useState, lazy, Suspense } from "react";
 import Navbar from "./components/Navbar";
 import { AnimatePresence, motion } from "framer-motion";
-
-const Home = lazy(() => import("./pages/Home"));
-const About = lazy(() => import("./pages/About"));
-const Projects = lazy(() => import("./pages/Projects"));
-const Contact = lazy(() => import("./pages/Contact"));
+import { BiSolidSun } from "react-icons/bi";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Projects from "./pages/Projects";
+import Contact from "./pages/Contact";
 
 const App = () => {
   const [activePage, setActivePage] = useState("home");
   const [hoveredPage, setHoveredPage] = useState(null); // renamed from 'hovered'
+  const [theme, setTheme] = useState("light");
 
   const shouldShift = hoveredPage && hoveredPage !== activePage;
 
@@ -22,9 +23,10 @@ const App = () => {
         setActivePage={setActivePage}
         setHoveredPage={setHoveredPage} // renamed here
       />
+      <BiSolidSun />
       <Suspense fallback={<div className="flex items-center justify-center w-full h-screen">Loading...</div>}>
         <div
-          className={`ml-0 sm:ml-[7vw] w-full sm:w-[calc(100vw-7vw)] transition-transform duration-300 ${shouldShift ? "translate-x-[-7vw]" : ""
+          className={`ml-0 w-full transition-transform duration-300 ${shouldShift ? "translate-x-[-7vw]" : ""
             }`}
         >
           <AnimatePresence mode="wait">
