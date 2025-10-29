@@ -10,7 +10,8 @@ export default function SpriteWalker() {
   const imagesRef = useRef([]);
   const frame = useRef(0);
 
-  const speed = 1.5;
+  const speed = 0.8
+  ;
   const totalFrames = 23;
   const scale = 0.08;
   const idleDelay = 400; // ms before idle

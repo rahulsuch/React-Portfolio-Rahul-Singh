@@ -7,13 +7,17 @@ import {
   FaUser,
   FaProjectDiagram,
   FaEnvelope,
+  FaComments, // 👈 ADD THIS
 } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { useChat } from "../context/ChatContext"; // 👈 ADD THIS
 
 const Navbar = ({ activePage, setActivePage, setHoveredPage }) => {
   const [isDark, setIsDark] = useState(
     document.body.classList.contains("dark")
   );
+
+  const { toggleChat } = useChat(); // 👈 for opening chatbot
 
   const toggleTheme = () => {
     document.body.classList.toggle("dark");
@@ -111,6 +115,18 @@ const Navbar = ({ activePage, setActivePage, setHoveredPage }) => {
             <span className="mt-0.5">{name}</span>
           </motion.button>
         ))}
+
+        {/* 👇 Chatbot Button — only visible on mobile */}
+        <motion.button
+          onClick={toggleChat}
+          whileTap={{ scale: 0.9 }}
+          className="flex flex-col items-center text-[10px] font-semibold text-gray-500 dark:text-gray-300 hover:text-blue-600"
+        >
+          <div className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
+            <FaComments />
+          </div>
+          <span className="mt-0.5">chat</span>
+        </motion.button>
       </div>
     </>
   );
