@@ -10,6 +10,7 @@ import AnimatedLandscapeBackground from "../components/AnimatedLandscapeBackgrou
 import SpriteWalker from "../components/SpriteWalker/SpriteWalker";
 import { useChat } from "../context/ChatContext"; // 👈 import context
 import RotatingText from "../components/RotatingText/RotatingText";
+import ClickSpark from "../components/clickspark/ClickSpark";
 
 const techList = [
   "React",
@@ -51,6 +52,7 @@ const animation = {
 const Home = React.memo(({ setActivePage }) => {
   const { showChat, toggleChat, closeChat } = useChat();
   const [isMobile, setIsMobile] = useState(false);
+  const [clickInfo, setClickInfo] = useState(false);
 
   // Detect mobile
   useEffect(() => {
@@ -59,6 +61,16 @@ const Home = React.memo(({ setActivePage }) => {
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
+
+  const infoModal = useMemo(() => {
+    if (!clickInfo) return null;
+    return (
+      <div className="fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg z-50">
+        <p className="text-sm">click to see animation</p>
+      </div>
+    );
+    setTimeout(() => setClickInfo(false), 3000);
+  }, [clickInfo]);
 
   const ChatBotComponent = useMemo(
     () => (
@@ -80,23 +92,41 @@ const Home = React.memo(({ setActivePage }) => {
       exit={{ opacity: 0, y: 50 }}
     >
       {!isMobile && <SpriteWalker />}
+      {clickInfo && infoModal}
 
       <div className="relative flex flex-col items-center justify-center min-h-screen px-4 z-10">
         <AnimatedLandscapeBackground />
-        <div className="text-">
+        <div className="text-left">
           <motion.h1
             variants={animation.item}
-            className="text-3xl sm:text-4xl md:text-4xl font-bold mb-4 flex items-center gap-2 flex-wrap"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 flex items-center gap-2 whitespace-nowrap overflow-hidden"
           >
             Hi, I'm
             <RotatingText
-              texts={[
-                "Rahul Singh",
-                "a Frontend Developer",
-                "a UI/UX Designer",
-              ]}
-              mainClassName="px-3 sm:px-2 md:px-3 bg-[#183d1eff] dark:bg-white text-white dark:text-black overflow-hidden py-0.5 sm:py-1 md:py-1 justify-center rounded-lg max-h-12 min-w-[400px] sm:min-w-[220px] md:min-w-[250px] flex items-center"
-              staggerFrom={"last"}
+              texts={["Rahul Singh", "Frontend Dev", "a UI/UX Designer"]}
+              mainClassName={`px-2 sm:px-3 md:px-3
+    sm:bg-[#183d1eff] dark:bg-white
+    sm:text-white dark:text-black
+    overflow-hidden py-0.5 sm:py-1 md:py-1
+    justify-center rounded-3xl max-h-12
+    min-w-[90px] sm:min-w-[180px] md:min-w-[220px]
+    flex items-center text-md sm:text-md md:text-xlg
+    truncate font-montserrat font-extrabold
+    text-2xl text-center`}
+              style={{
+                textShadow: document.body.classList.contains("dark")
+                  ? `
+          1px 1px 2px rgba(255, 255, 255, 0.6),   /* inner glow for black text */
+          0 0 6px rgba(0, 0, 0, 0.4),             /* soft ambient depth */
+          0 0 12px rgba(0, 0, 0, 0.25)            /* diffuse far glow */
+        `
+                  : `
+          2px 2px 4px rgba(0, 0, 0, 0.45),        /* deep shadow for white text */
+          0 0 6px rgba(255, 255, 255, 0.4),       /* close light halo */
+          0 0 14px rgba(255, 255, 255, 0.25)      /* subtle outer glow */
+        `,
+              }}
+              staggerFrom="last"
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               exit={{ y: "-120%" }}
@@ -115,19 +145,22 @@ const Home = React.memo(({ setActivePage }) => {
             high-performance UIs using React, Redux, SCSS, and TailwindCSS.
           </motion.p>
 
-          <motion.div
-            variants={animation.item}
-            className="flex flex-wrap gap-2 mb-6 max-w-[70vw]"
-          >
-            {techList.map((tech) => (
-              <span
-                key={tech}
-                className="text-sm px-3 py-1 bg-white dark:bg-white text-grey-900 dark:text-black rounded-full font-medium"
-              >
-                {tech}
-              </span>
-            ))}
-          </motion.div>
+          <ClickSpark>
+            <motion.div
+              variants={animation.item}
+              className="flex flex-wrap gap-2 mb-6 sm:max-w-[70vw] cursor-pointer select-none dark:bg-white/20 bg-black/20 sm:py-2 sm:px-4 py-1 px-2 rounded-2xl shadow-inner backdrop-blur-sm"
+              onHover={() => setClickInfo(true)}
+            >
+              {techList.map((tech) => (
+                <span
+                  key={tech}
+                  className="text-sm px-3 py-1 bg-white dark:bg-white text-gray-900 dark:text-black rounded-full font-medium"
+                >
+                  {tech}
+                </span>
+              ))}
+            </motion.div>
+          </ClickSpark>
 
           <motion.div
             variants={animation.item}
@@ -145,10 +178,10 @@ const Home = React.memo(({ setActivePage }) => {
               }
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              className="relative flex items-center justify-center max-h-fit px-4 py-3 gap-2 rounded-2xl bg-gradient-to-r from-violet-600 to-blue-600 text-white font-semibold shadow-lg"
+              className="relative flex items-center justify-center max-h-fit px-4 py-3 gap-2 rounded-2xl bg-gradient-to-r from-pink-600 to-red-600 text-white font-semibold shadow-lg"
               onClick={() => setActivePage("projects")}
             >
-              <FaFolderOpen /> View Projects
+              <FaFolderOpen /> Projects
             </motion.button>
 
             <motion.button
@@ -163,7 +196,7 @@ const Home = React.memo(({ setActivePage }) => {
               }
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              className="relative px-4 py-3 flex items-center justify-center gap-2 max-h-fit rounded-2xl bg-gradient-to-r from-violet-600 to-blue-600 text-white font-semibold shadow-lg"
+              className="relative px-4 py-3 flex items-center justify-center gap-2 max-h-fit rounded-2xl bg-gradient-to-r from-pink-600 to-red-600 text-white font-semibold shadow-lg"
               onClick={() => setActivePage("contact")}
             >
               <FaEnvelope /> Contact Me

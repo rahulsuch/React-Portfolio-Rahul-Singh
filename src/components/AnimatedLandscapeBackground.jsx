@@ -4,7 +4,6 @@ const AnimatedLandscapeBackground = () => {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
   console.log("animated background done");
-  
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -30,10 +29,11 @@ const AnimatedLandscapeBackground = () => {
         }}
       >
         {/* LIGHT MODE */}
+        {/* LIGHT MODE */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="block w-full h-full object-cover dark:hidden"
-          preserveAspectRatio="none"
+          preserveAspectRatio="xMidYMid slice"
           viewBox="0 0 1440 800"
         >
           <defs>
@@ -44,7 +44,7 @@ const AnimatedLandscapeBackground = () => {
           </defs>
 
           <rect width="1440" height="800" fill="url(#dayGradient)" />
-          <circle cx="1180" cy="120" r="60" fill="#fbd46d" />
+          <circle cx="800" cy="120" r="60" fill="#fbd46d" />
           <path
             d="M0 600 Q 360 550 720 600 T 1440 600 L1440 800 L0 800Z"
             fill="#a8d8a5"
@@ -63,11 +63,11 @@ const AnimatedLandscapeBackground = () => {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="hidden dark:block w-full h-full object-cover"
-          preserveAspectRatio="none"
+          preserveAspectRatio="xMidYMid slice"
           viewBox="0 0 1440 800"
         >
           <rect width="1440" height="800" fill="#090909" />
-          <circle cx="1180" cy="120" r="50" fill="#f7e7b5" />
+          <circle cx="800" cy="120" r="50" fill="#f7e7b5" />
           <path
             d="M0 600 Q 360 550 720 600 T 1440 600 L1440 800 L0 800Z"
             fill="#0f0f0f"
