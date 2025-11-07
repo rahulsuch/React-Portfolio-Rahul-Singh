@@ -17,13 +17,12 @@ const App = () => {
   console.log(activePage, hoveredPage);
 
   return (
-    <div className="flex min-h-screen overflow-hidden">
+    <div className="flex min-h-screen md:overflow-hidden">
       <Navbar
         activePage={activePage}
         setActivePage={setActivePage}
         setHoveredPage={setHoveredPage} // renamed here
       />
-      <BiSolidSun />
       <Suspense fallback={<div className="flex items-center justify-center w-full h-screen">Loading...</div>}>
         <div
           className={`ml-0 w-full transition-transform duration-300 ${shouldShift ? "translate-x-[-7vw]" : ""
