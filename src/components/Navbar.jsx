@@ -14,13 +14,13 @@ import { useChat } from "../context/ChatContext"; // 👈 ADD THIS
 
 const Navbar = ({ activePage, setActivePage, setHoveredPage }) => {
   const [isDark, setIsDark] = useState(
-    document.body.classList.contains("dark")
+    document.documentElement.classList.contains("dark")
   );
 
   const { toggleChat } = useChat(); // 👈 for opening chatbot
 
   const toggleTheme = () => {
-    document.body.classList.toggle("dark");
+    document.documentElement.classList.toggle("dark");
     setIsDark(!isDark);
   };
 

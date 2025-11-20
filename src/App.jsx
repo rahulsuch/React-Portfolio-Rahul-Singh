@@ -13,7 +13,6 @@ const App = () => {
   const [theme, setTheme] = useState("light");
 
   const shouldShift = hoveredPage && hoveredPage !== activePage;
-
   console.log(activePage, hoveredPage);
 
   return (
@@ -23,10 +22,16 @@ const App = () => {
         setActivePage={setActivePage}
         setHoveredPage={setHoveredPage} // renamed here
       />
-      <Suspense fallback={<div className="flex items-center justify-center w-full h-screen">Loading...</div>}>
+      <Suspense
+        fallback={
+          <div className="flex items-center justify-center w-full h-screen">
+            Loading...
+          </div>
+        }
+      >
         <div
-          className={`ml-0 w-full transition-transform duration-300 ${shouldShift ? "translate-x-[-7vw]" : ""
-            }`}
+          className={`w-full transition-transform duration-300 md:ml-[7em] pb-16 ${shouldShift ? "translate-x-[-7vw]" : ""}
+  `}
         >
           <AnimatePresence mode="wait">
             <motion.div
@@ -45,7 +50,7 @@ const App = () => {
           </AnimatePresence>
         </div>
       </Suspense>
-    </div >
+    </div>
   );
 };
 

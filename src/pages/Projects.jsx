@@ -106,7 +106,7 @@ const Projects = () => {
         );
 
   return (
-    <section className="min-h-screen px-4 md:px-0 md:ml-16 pb-14 md:pt-[10rem] sm:pt-14 bg-gradient-to-br from-purple-100 via-pink-100 to-white dark:from-[#1a032a] dark:via-[#2a0a3c] dark:to-[#0d0d1a] transition-colors duration-700">
+    <section className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-white dark:from-[#1a032a] dark:via-[#2a0a3c] dark:to-[#0d0d1a] transition-colors duration-700">
       {/* Header */}
       <motion.div
         className="mb-12 text-center"
@@ -337,7 +337,7 @@ const Projects = () => {
               {selectedProject.description}
             </p>
 
-            <div className="mt-6 flex flex-wrap items-center gap-4">
+            <div className="mt-6 sm:mb-14 flex flex-wrap items-center gap-4">
               {selectedProject.techStack.map((tech, index) => (
                 <div
                   key={index}
