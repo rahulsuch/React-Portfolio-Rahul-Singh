@@ -127,16 +127,16 @@ const Contact = () => {
           </p>
 
           {/* ... inside your return JSX */}
-          {isChatOpen && <ChatModal onClose={() => setIsChatOpen(false)} />}
+          {/* {isChatOpen && <ChatModal onClose={() => setIsChatOpen(false)} />} */}
 
           {/* Floating Chat Button */}
-          <button
+          {/* <button
             onClick={() => setIsChatOpen(true)}
             className="fixed bottom-6 right-6 z-40 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-lg"
             aria-label="Open Chat"
           >
             💬
-          </button>
+          </button> */}
         </div>
       </div>
     </motion.section>
