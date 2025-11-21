@@ -1,4 +1,4 @@
-import React, { useState, lazy, Suspense } from "react";
+import React, { useState, lazy, Suspense, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import { AnimatePresence, motion } from "framer-motion";
 import { BiSolidSun } from "react-icons/bi";
@@ -10,13 +10,12 @@ import Contact from "./pages/Contact";
 const App = () => {
   const [activePage, setActivePage] = useState("home");
   const [hoveredPage, setHoveredPage] = useState(null); // renamed from 'hovered'
-  const [theme, setTheme] = useState("light");
+
 
   const shouldShift = hoveredPage && hoveredPage !== activePage;
-  console.log(activePage, hoveredPage);
 
   return (
-    <div className="flex min-h-screen md:overflow-hidden">
+    <div className="flex min-h-screen md:overflow-hidden border-box">
       <Navbar
         activePage={activePage}
         setActivePage={setActivePage}
@@ -29,25 +28,29 @@ const App = () => {
           </div>
         }
       >
-        <div
-          className={`w-full transition-transform duration-300 md:ml-[7em] pb-16 ${shouldShift ? "translate-x-[-7vw]" : ""}
-  `}
-        >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activePage}
-              initial={{ x: "100vw", opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: "-100vw", opacity: 0 }}
-              transition={{ duration: 0.5 }}
-              className="w-full h-full z-10"
-            >
-              {activePage === "home" && <Home setActivePage={setActivePage} />}
-              {activePage === "about" && <About />}
-              {activePage === "projects" && <Projects />}
-              {activePage === "contact" && <Contact />}
-            </motion.div>
-          </AnimatePresence>
+        <div className="relative w-full border-box">
+          <div
+            className={`absolute inset-0 transition-transform duration-300 
+      ${shouldShift ? "translate-x-[-7vw]" : ""}`}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activePage}
+                initial={{ x: "100vw", opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: "-100vw", opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                className="w-full h-full z-10"
+              >
+                {activePage === "home" && (
+                  <Home setActivePage={setActivePage} />
+                )}
+                {activePage === "about" && <About />}
+                {activePage === "projects" && <Projects />}
+                {activePage === "contact" && <Contact />}
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </Suspense>
     </div>

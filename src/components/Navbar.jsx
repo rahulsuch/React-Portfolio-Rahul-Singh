@@ -20,7 +20,7 @@ const Navbar = ({ activePage, setActivePage, setHoveredPage }) => {
   const { toggleChat } = useChat(); // 👈 for opening chatbot
 
   const toggleTheme = () => {
-    document.documentElement.classList.toggle("dark");
+    document.body.classList.toggle("dark");
     setIsDark(!isDark);
   };
 
@@ -47,36 +47,39 @@ const Navbar = ({ activePage, setActivePage, setHoveredPage }) => {
             <FaMoon className="text-gray-600 text-lg" />
           )}
         </button>
-
         {/* Middle: Navigation Links */}
         <ul className="flex flex-col items-center space-y-8">
           {links.map(({ name, icon }) => (
-            <motion.li key={name} whileHover={{ scale: 1.1 }}>
+            <li key={name}>
               <button
                 onClick={() => setActivePage(name)}
                 onMouseEnter={() => setHoveredPage(name)}
                 onMouseLeave={() => setHoveredPage(null)}
-                className={`flex flex-col items-center justify-center text-xs font-semibold tracking-wide transition-all duration-300 ${
+                className={`flex flex-col items-center justify-center text-xs font-semibold tracking-wide transition-all duration-300 h-16 ${
+                  // fixed height prevents layout shift
                   activePage === name
                     ? "text-blue-600 dark:text-blue-400"
                     : "text-gray-500 dark:text-gray-300 hover:text-blue-500"
                 }`}
               >
                 <motion.div
+                  whileHover={{ scale: 1.08 }}
+                  transition={{ type: "spring", stiffness: 300 }}
                   className={`p-3 rounded-2xl ${
+                    // scale only the icon wrapper
                     activePage === name
                       ? "bg-blue-100 dark:bg-blue-900"
                       : "hover:bg-gray-100 dark:hover:bg-gray-800"
                   } transition-all`}
+                  style={{ transformOrigin: "center" }}
                 >
                   {icon}
                 </motion.div>
                 <span className="mt-1">{name}</span>
               </button>
-            </motion.li>
+            </li>
           ))}
         </ul>
-
         {/* Bottom: Social Links */}
         <div className="flex flex-col items-center space-y-5">
           <a
@@ -117,32 +120,36 @@ const Navbar = ({ activePage, setActivePage, setHoveredPage }) => {
         ))}
 
         {/* 🌙 Theme Toggle (Mobile) */}
-        <motion.button
-          onClick={toggleTheme}
-          whileTap={{ scale: 0.9 }}
-          className="flex flex-col items-center text-[10px] font-semibold text-gray-500 dark:text-gray-300 hover:text-blue-600"
-        >
-          <div className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
+        {activePage === "home" && (
+          <>
+            <motion.button
+              onClick={toggleTheme}
+              whileTap={{ scale: 0.9 }}
+              className="flex flex-col items-center text-[10px] font-semibold text-gray-500 dark:text-gray-300 hover:text-blue-600"
+            >
+              <div className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
             {isDark ? (
-              <FaSun className="text-yellow-400" />
-            ) : (
-              <FaMoon className="text-gray-600" />
-            )}
-          </div>
-          <span className="mt-0.5">theme</span>
-        </motion.button>
+                  <FaSun className="text-yellow-400" />
+                ) : (
+                  <FaMoon className="text-gray-600" />
+                )}
+              </div>
+              <span className="mt-0.5">theme</span>
+            </motion.button>
 
-        {/* 💬 Chatbot Button */}
-        <motion.button
-          onClick={toggleChat}
-          whileTap={{ scale: 0.9 }}
-          className="flex flex-col items-center text-[10px] font-semibold text-gray-500 dark:text-gray-300 hover:text-blue-600"
-        >
-          <div className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
-            <FaComments />
-          </div>
-          <span className="mt-0.5">chat</span>
-        </motion.button>
+            {/* 💬 Chatbot Button */}
+            <motion.button
+              onClick={toggleChat}
+              whileTap={{ scale: 0.9 }}
+              className="flex flex-col items-center text-[10px] font-semibold text-gray-500 dark:text-gray-300 hover:text-blue-600"
+            >
+              <div className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
+                <FaComments />
+              </div>
+              <span className="mt-0.5">chat</span>
+            </motion.button>
+          </>
+        )}
       </div>
     </>
   );

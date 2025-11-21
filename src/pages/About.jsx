@@ -71,8 +71,8 @@ const About = () => {
 
   return (
     <motion.section
-      className="min-h-screen w-ful
-      l flex items-center sm:mr-0 px-4 sm:px-6 md:px-10 py-10 md:py-20 text-gray-900 dark:bg-[#121212] dark:text-white transition-colors duration-500"
+      className="min-h-screen scroll-smooth w-ful
+      l flex  text-gray-900 dark:bg-[#121212] dark:text-white transition-colors duration-500"
       initial={{ opacity: 0, scale: 0.97 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.7, ease: "easeOut" }}
