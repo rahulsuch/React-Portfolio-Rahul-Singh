@@ -34,7 +34,7 @@ const Contact = () => {
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: "-100vw", opacity: 0 }}
       transition={{ duration: 0.6 }}
-      className="min-h-screen w-full p-6 bg-white dark:bg-[#0d1117] text-gray-800 dark:text-white"
+      className="min-h-screen w-full scroll-smooth p-6 bg-white dark:bg-[#0d1117] text-gray-800 dark:text-white"
     >
       <div className="max-w-6xl mx-auto flex flex-col gap-10">
         {/* Top: Contact Info and Form */}

@@ -54,6 +54,8 @@ const Home = React.memo(({ setActivePage }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [clickInfo, setClickInfo] = useState(false);
 
+  const Background = useMemo(() => <AnimatedLandscapeBackground />, []);
+
   // Detect mobile
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -65,9 +67,19 @@ const Home = React.memo(({ setActivePage }) => {
   const infoModal = useMemo(() => {
     if (!clickInfo) return null;
     return (
-      <div className="fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg z-50">
-        <p className="text-sm">click to see animation</p>
-      </div>
+      <motion.div
+        className="fixed bottom-20 scroll-smooth left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg z-50"
+        initial={{ opacity: 0, x: -40 }}
+        animate={{ opacity: 1, x: 0 }}
+      >
+        <motion.p
+          className="text-sm"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          click to see effect
+        </motion.p>
+      </motion.div>
     );
     setTimeout(() => setClickInfo(false), 3000);
   }, [clickInfo]);
@@ -95,7 +107,7 @@ const Home = React.memo(({ setActivePage }) => {
       {clickInfo && infoModal}
 
       <div className="relative flex flex-col items-center justify-center min-h-screen px-4 z-10">
-        <AnimatedLandscapeBackground />
+        {Background}
         <div className="text-left">
           <motion.h1
             variants={animation.item}
@@ -145,11 +157,23 @@ const Home = React.memo(({ setActivePage }) => {
             high-performance UIs using React, Redux, SCSS, and TailwindCSS.
           </motion.p>
 
-          <ClickSpark>
+          <ClickSpark
+            sparkColor="#212121"
+            sparkSize={10}
+            sparkRadius={15}
+            sparkCount={8}
+            duration={400}
+            // optional extras
+            multiColor={false}
+            glow={true}
+            randomBurst={false}
+            shape="circle" // circle | square | triangle
+          >
             <motion.div
               variants={animation.item}
               className="flex flex-wrap gap-2 mb-6 sm:max-w-[70vw] cursor-pointer select-none dark:bg-white/20 bg-black/20 sm:py-2 sm:px-4 py-1 px-2 rounded-2xl shadow-inner backdrop-blur-sm"
-              onHover={() => setClickInfo(true)}
+              onHoverStart={() => setClickInfo(true)}
+              onHoverEnd={() => setClickInfo(false)}
             >
               {techList.map((tech) => (
                 <span

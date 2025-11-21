@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 const AnimatedLandscapeBackground = () => {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
-  console.log("animated background done");
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -91,4 +90,4 @@ const AnimatedLandscapeBackground = () => {
   );
 };
 
-export default AnimatedLandscapeBackground;
+export default React.memo(AnimatedLandscapeBackground);

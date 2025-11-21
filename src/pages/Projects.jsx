@@ -18,7 +18,6 @@ import {
   SiJsonwebtokens,
 } from "react-icons/si";
 import { MdClose } from "react-icons/md";
-// import env from "react-dotenv";
 
 const iconMap = {
   React: <FaReact className="text-sky-500" size={22} />,
@@ -54,7 +53,7 @@ const projects = [
       import.meta.env.VITE_IMAGE_SRC + "Home_screenshot.png",
     ],
     description:
-      "A modern portfolio built using React, Tailwind, and Three.js with animated transitions and responsive layout.",
+      "A modern and interactive portfolio website built using React, TailwindCSS, and Framer Motion. It includes smooth page transitions, responsive layouts, dark mode, glassmorphism UI, dynamic project modals, and a custom animated sprite walker with LocalStorage persistence. Designed with performance-focused architecture powered by Vite.",
     techStack: ["React", "TailwindCSS", "Three.js", "Redux", "JavaScript"],
     category: ["UI", "3D"],
   },
@@ -106,7 +105,7 @@ const Projects = () => {
         );
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-white dark:from-[#1a032a] dark:via-[#2a0a3c] dark:to-[#0d0d1a] transition-colors duration-700">
+    <section className="min-h-screen w-full sm:mr-0 px-4 sm:px-6 md:mx-8 md:pl-16 py-10 md:py-20 bg-gradient-to-br from-purple-100 via-pink-100 to-white dark:from-[#1a032a] dark:via-[#2a0a3c] dark:to-[#0d0d1a] transition-colors duration-700 scroll-smooth">
       {/* Header */}
       <motion.div
         className="mb-12 text-center"
@@ -177,7 +176,6 @@ const Projects = () => {
           {filteredProjects.map((project) => (
             <motion.div
               key={project.id}
-              className="group bg-white/80 dark:bg-gray-800/60 backdrop-blur-md shadow-lg rounded-xl overflow-hidden cursor-pointer mx-auto transition-all duration-300 w-full aspect-[2.29/1] flex flex-col sm:block max-w-[90vw] sm:max-w-[85vw] md:max-w-[80vw] lg:max-w-[40vw]"
               onClick={() => setSelectedProject(project)}
               whileHover={{ scale: 1.03 }}
               initial={{ opacity: 0, scale: 0.95, y: 30 }}
@@ -189,34 +187,49 @@ const Projects = () => {
                 stiffness: 110,
                 damping: 14,
               }}
+              className="
+                group 
+                rounded-2xl 
+                overflow-hidden 
+                cursor-pointer
+                backdrop-blur-xl
+                bg-white/60 dark:bg-gray-800/50
+                shadow-[0_15px_50px_-10px_rgba(0,0,0,0.20)]
+                hover:shadow-[0_25px_70px_-10px_rgba(0,0,0,0.28)]
+                transition-all duration-500
+                mx-auto
+                w-full
+                aspect-[2.29/1]
+                flex flex-col sm:block
+                max-w-[90vw] sm:max-w-[85vw] md:max-w-[80vw] lg:max-w-[40vw]
+              "
             >
-              {/* Image section */}
+              {/* Image */}
               <div className="relative w-full h-full aspect-[2.29/1] sm:aspect-auto">
                 <img
                   src={project.images[0]}
                   alt={project.title}
                   className="absolute inset-0 w-full h-full object-cover z-0"
                 />
-                {/* Project Title Always visible */}
                 <div className="absolute top-2 left-2 bg-black/50 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-md z-10">
                   {project.title}
                 </div>
               </div>
 
-              {/* Overlay Content: Desktop/Tablet = on hover; Mobile = always visible */}
+              {/* Overlay */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.4 }}
-                className={`
+                className="
                   px-4 py-3 text-white w-full bg-black/40 hover:bg-black/90 transition-all duration-300
                   sm:absolute sm:inset-0 sm:opacity-0 sm:group-hover:opacity-100 sm:flex sm:flex-col sm:justify-center sm:items-center
                   flex flex-col mt-[calc(100%+1rem)] sm:mt-0
-                `}
+                "
               >
                 <div className="text-center w-full">
-                  <p className="text-sm mb-2 text-gray-100 leading-snug visibility-hidden  group-hover:visibility-visible">
+                  <p className="text-sm mb-2 text-gray-100 leading-snug visibility-hidden group-hover:visibility-visible">
                     {project.description.slice(0, 100)}...
                   </p>
 
@@ -275,11 +288,7 @@ const Projects = () => {
             animate={{
               scale: 1,
               opacity: 1,
-              transition: {
-                type: "spring",
-                stiffness: 120,
-                damping: 14,
-              },
+              transition: { type: "spring", stiffness: 120, damping: 14 },
             }}
             exit={{ scale: 0.6, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
@@ -333,11 +342,7 @@ const Projects = () => {
               ))}
             </Carousel>
 
-            <p className="mt-6 text-gray-700 dark:text-gray-300 text-justify leading-relaxed">
-              {selectedProject.description}
-            </p>
-
-            <div className="mt-6 sm:mb-14 flex flex-wrap items-center gap-4">
+            <div className="mt-6 flex flex-wrap items-center gap-4">
               {selectedProject.techStack.map((tech, index) => (
                 <div
                   key={index}
@@ -357,6 +362,9 @@ const Projects = () => {
                 </div>
               ))}
             </div>
+            <p className="mt-6 sm:mb-14 text-gray-700 dark:text-gray-300 text-justify leading-relaxed">
+              {selectedProject.description}
+            </p>
           </motion.div>
         </motion.div>
       )}
