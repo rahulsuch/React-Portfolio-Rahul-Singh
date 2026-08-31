@@ -26,6 +26,10 @@ import { BsDiagram3 } from "react-icons/bs";
 import { PiCirclesThreeBold } from "react-icons/pi";
 
 const About = () => {
+  const profileImg = (import.meta.env.VITE_IMAGE_SRC || "/assets/").endsWith("/")
+    ? (import.meta.env.VITE_IMAGE_SRC || "/assets/") + "rahul_profile.png"
+    : (import.meta.env.VITE_IMAGE_SRC || "/assets/") + "/rahul_profile.png";
+
   const keySkills = [
     { name: "AGILE", icon: <BsDiagram3 /> },
     { name: "HTML", icon: <FaHtml5 /> },
@@ -57,22 +61,21 @@ const About = () => {
     "CI/CD Pipeline",
   ];
 
-  const bgColors = [
-    "bg-red-200",
-    "bg-blue-200",
-    "bg-green-200",
-    "bg-yellow-200",
-    "bg-purple-200",
-    "bg-pink-200",
-    "bg-orange-200",
-    "bg-teal-200",
-    "bg-indigo-200",
+  const badgeStyles = [
+    "bg-red-100 text-red-800 dark:bg-red-950/60 dark:text-red-300 dark:border-red-800/40",
+    "bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300 dark:border-blue-800/40",
+    "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-800/40",
+    "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 dark:border-amber-800/40",
+    "bg-purple-100 text-purple-800 dark:bg-purple-950/60 dark:text-purple-300 dark:border-purple-800/40",
+    "bg-pink-100 text-pink-800 dark:bg-pink-950/60 dark:text-pink-300 dark:border-pink-800/40",
+    "bg-orange-100 text-orange-800 dark:bg-orange-950/60 dark:text-orange-300 dark:border-orange-800/40",
+    "bg-teal-100 text-teal-800 dark:bg-teal-950/60 dark:text-teal-300 dark:border-teal-800/40",
+    "bg-indigo-100 text-indigo-800 dark:bg-indigo-950/60 dark:text-indigo-300 dark:border-indigo-800/40",
   ];
 
   return (
     <motion.section
-      className="min-h-screen scroll-smooth w-ful
-      l flex  text-gray-900 dark:bg-[#121212] dark:text-white transition-colors duration-500"
+      className="min-h-screen w-full flex items-center justify-center p-6 md:p-12 md:pl-28 bg-white dark:bg-[#121212] text-gray-900 dark:text-white transition-colors duration-500 scroll-smooth"
       initial={{ opacity: 0, scale: 0.97 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.7, ease: "easeOut" }}
@@ -88,7 +91,7 @@ const About = () => {
         >
           {/* Mobile Circular Image */}
           <img
-            src={`${import.meta.env.VITE_IMAGE_SRC}rahul_profile.png`}
+            src={profileImg}
             alt="Profile"
             className="block sm:hidden w-[70vw] h-[70vw] rounded-full object-cover shadow-md"
             loading="lazy"
@@ -97,7 +100,7 @@ const About = () => {
           {/* Tablet + Desktop Image */}
           <div className="hidden sm:block aspect-[3/4] w-[75%] sm:w-[60%] md:w-[55%] lg:w-[80%] xl:w-[70%] max-w-[360px] overflow-hidden rounded-xl shadow-xl">
             <img
-              src={`${import.meta.env.VITE_IMAGE_SRC}rahul_profile.png`}
+              src={profileImg}
               alt="Profile"
               className="w-full h-full object-cover rounded-xl"
               loading="lazy"
@@ -116,7 +119,7 @@ const About = () => {
             About Me
           </h2>
 
-          <p className="text-base sm:text-lg md:text-xl mb-6 leading-relaxed text-center lg:text-left">
+          <p className="text-base sm:text-lg md:text-xl mb-6 leading-relaxed text-center lg:text-left text-gray-700 dark:text-gray-300">
             Frontend developer with over 3.5 years of experience building
             scalable, intuitive web applications using React, Redux, and modern
             styling frameworks. Focused on performance, clean UI, API
@@ -133,7 +136,7 @@ const About = () => {
               {keySkills.map((skill, i) => (
                 <motion.span
                   key={i}
-                  className={`text-sm px-3 py-2 rounded-xl shadow-sm font-medium flex items-center gap-2 ${bgColors[i % bgColors.length]} text-gray-900 cursor-pointer`}
+                  className={`text-sm px-3 py-2 rounded-xl shadow-sm font-medium flex items-center gap-2 border border-transparent ${badgeStyles[i % badgeStyles.length]} cursor-pointer`}
                   whileHover={{ scale: 1.08 }}
                   transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 >
@@ -153,7 +156,7 @@ const About = () => {
               {softSkills.map((tag, i) => (
                 <motion.span
                   key={i}
-                  className="bg-blue-100 dark:bg-blue-200 text-blue-800 dark:text-black text-sm px-3 py-1 rounded-full"
+                  className="bg-blue-100 dark:bg-blue-950/70 text-blue-800 dark:text-blue-300 border border-transparent dark:border-blue-800/40 text-sm px-3 py-1 rounded-full font-medium"
                   whileHover={{ scale: 1.08 }}
                 >
                   {tag}

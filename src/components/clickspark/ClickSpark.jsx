@@ -78,8 +78,10 @@ const ClickSpark = ({
 
     setSparks((prev) => [...prev, ...newSparks]);
 
+    const sparkIds = new Set(newSparks.map((s) => s.id));
+
     setTimeout(() => {
-      setSparks((prev) => prev.slice(newSparks.length));
+      setSparks((prev) => prev.filter((s) => !sparkIds.has(s.id)));
     }, duration);
   };
 
@@ -99,8 +101,8 @@ const ClickSpark = ({
             top: spark.y,
             width: shape === "triangle" ? 0 : sparkSize,
             height: shape === "triangle" ? 0 : sparkSize,
-            background: shape === "triangle" ? "transparent" : randomColor,
-            borderBottomColor: shape === "triangle" ? spark.color : getSparkColor,
+            background: shape === "triangle" ? "transparent" : spark.color,
+            borderBottomColor: shape === "triangle" ? spark.color : "transparent",
             boxShadow: glow ? `0 0 8px ${spark.color}` : "none",
           }}
           initial={{ opacity: 1, scale: 1, x: 0, y: 0 }}

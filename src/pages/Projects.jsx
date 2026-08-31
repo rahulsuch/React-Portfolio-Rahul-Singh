@@ -44,13 +44,17 @@ const allSkills = [
   "Git",
 ];
 
+const assetPrefix = (import.meta.env.VITE_IMAGE_SRC || "/assets/").endsWith("/")
+  ? (import.meta.env.VITE_IMAGE_SRC || "/assets/")
+  : (import.meta.env.VITE_IMAGE_SRC || "/assets/") + "/";
+
 const projects = [
   {
     id: 1,
     title: "Portfolio Website",
     images: [
-      import.meta.env.VITE_IMAGE_SRC + "About_screenshot.png",
-      import.meta.env.VITE_IMAGE_SRC + "Home_screenshot.png",
+      assetPrefix + "About_screenshot.png",
+      assetPrefix + "Home_screenshot.png",
     ],
     description:
       "A modern and interactive portfolio website built using React, TailwindCSS, and Framer Motion. It includes smooth page transitions, responsive layouts, dark mode, glassmorphism UI, dynamic project modals, and a custom animated sprite walker with LocalStorage persistence. Designed with performance-focused architecture powered by Vite.",
@@ -61,14 +65,14 @@ const projects = [
     id: 2,
     title: "API Dashboard",
     images: [
-      import.meta.env.VITE_IMAGE_SRC + "Dashboard_Login.png",
-      import.meta.env.VITE_IMAGE_SRC + "Certificate_Screenshot.png",
-      import.meta.env.VITE_IMAGE_SRC + "MIS_HomeScreenshot.png",
-      import.meta.env.VITE_IMAGE_SRC + "ReportList_Screenshot.png",
-      import.meta.env.VITE_IMAGE_SRC + "ReportForm_Screenshot.png",
-      import.meta.env.VITE_IMAGE_SRC + "Dashboard_Screenshot.png",
-      import.meta.env.VITE_IMAGE_SRC + "Dashboard1_Screenshot.png",
-      import.meta.env.VITE_IMAGE_SRC + "Dashboard2_Screenshot.png",
+      assetPrefix + "Dashboard_Login.png",
+      assetPrefix + "Certificate_Screenshot.png",
+      assetPrefix + "MIS_HomeScreenshot.png",
+      assetPrefix + "ReportList_Screenshot.png",
+      assetPrefix + "ReportForm_Screenshot.png",
+      assetPrefix + "Dashboard_Screenshot.png",
+      assetPrefix + "Dashboard1_Screenshot.png",
+      assetPrefix + "Dashboard2_Screenshot.png",
     ],
     description:
       "JWT-authenticated dashboard integrating 100+ REST APIs with Redux and reusable components.",
@@ -199,48 +203,48 @@ const Projects = () => {
                 transition-all duration-500
                 mx-auto
                 w-full
-                aspect-[2.29/1]
-                flex flex-col sm:block
                 max-w-[90vw] sm:max-w-[85vw] md:max-w-[80vw] lg:max-w-[40vw]
+                relative
+                flex flex-col
               "
             >
               {/* Image */}
-              <div className="relative w-full h-full aspect-[2.29/1] sm:aspect-auto">
+              <div className="relative w-full aspect-[16/9] overflow-hidden">
                 <img
                   src={project.images[0]}
                   alt={project.title}
-                  className="absolute inset-0 w-full h-full object-cover z-0"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute top-2 left-2 bg-black/50 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-md z-10">
+                <div className="absolute top-2 left-2 bg-black/60 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-semibold shadow-md z-10">
                   {project.title}
                 </div>
               </div>
 
-              {/* Overlay */}
+              {/* Overlay / Info */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 0.3 }}
                 className="
-                  px-4 py-3 text-white w-full bg-black/40 hover:bg-black/90 transition-all duration-300
-                  sm:absolute sm:inset-0 sm:opacity-0 sm:group-hover:opacity-100 sm:flex sm:flex-col sm:justify-center sm:items-center
-                  flex flex-col mt-[calc(100%+1rem)] sm:mt-0
+                  p-4 text-gray-800 dark:text-white w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md
+                  sm:absolute sm:inset-0 sm:opacity-0 sm:group-hover:opacity-100 sm:flex sm:flex-col sm:justify-center sm:items-center sm:text-white sm:bg-black/75
+                  flex flex-col justify-between transition-all duration-300
                 "
               >
                 <div className="text-center w-full">
-                  <p className="text-sm mb-2 text-gray-100 leading-snug visibility-hidden group-hover:visibility-visible">
-                    {project.description.slice(0, 100)}...
+                  <p className="text-sm mb-3 line-clamp-3 text-gray-700 dark:text-gray-200 sm:text-gray-100 leading-snug">
+                    {project.description.slice(0, 120)}...
                   </p>
 
-                  <div className="flex flex-wrap justify-center gap-2 mb-3">
+                  <div className="flex flex-wrap justify-center gap-1.5 mb-3">
                     {project.techStack.map((tech, idx) => (
                       <span
                         key={idx}
-                        className={`text-xs px-2 py-1 rounded-full ${
+                        className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${
                           selectedSkills.includes(tech)
-                            ? "bg-purple-500 text-white"
-                            : "bg-white text-black"
+                            ? "bg-purple-600 text-white"
+                            : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 sm:bg-white sm:text-black"
                         }`}
                       >
                         {tech}
@@ -248,29 +252,38 @@ const Projects = () => {
                     ))}
                   </div>
 
-                  <div className="flex justify-center gap-2 mb-2">
+                  <div className="flex justify-center gap-1.5 mb-3">
                     {project.category.map((cat, i) => (
                       <span
                         key={i}
-                        className="text-xs px-2 py-1 rounded-full bg-yellow-300 text-black"
+                        className="text-xs px-2.5 py-0.5 rounded-full bg-yellow-400 text-black font-semibold"
                       >
                         {cat}
                       </span>
                     ))}
                   </div>
 
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-5 py-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-full shadow-md transition-all duration-300"
+                  <span
+                    className="inline-block px-4 py-1.5 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white text-xs font-semibold rounded-full shadow-md transition-all duration-300"
                   >
-                    Mini Documentation
-                  </motion.button>
+                    View Details
+                  </span>
                 </div>
               </motion.div>
             </motion.div>
           ))}
         </AnimatePresence>
+        {filteredProjects.length === 0 && (
+          <div className="col-span-full text-center py-12 text-gray-500 dark:text-gray-400">
+            <p className="text-lg font-medium">No projects match the selected filters.</p>
+            <button
+              onClick={resetFilters}
+              className="mt-3 px-4 py-1.5 bg-purple-600 hover:bg-purple-700 text-white rounded-full text-sm font-medium transition"
+            >
+              Reset Filters
+            </button>
+          </div>
+        )}
       </motion.div>
 
       {/* Modal */}
@@ -296,6 +309,7 @@ const Projects = () => {
             <button
               onClick={() => setSelectedProject(null)}
               className="absolute top-4 right-4 text-gray-600 dark:text-gray-300 hover:text-red-500"
+              aria-label="Close project modal"
             >
               <FaTimes size={22} />
             </button>
@@ -315,6 +329,7 @@ const Projects = () => {
                   <button
                     onClick={onClickHandler}
                     className="absolute left-4 top-1/2 z-10 transform -translate-y-1/2 bg-black bg-opacity-40 text-white p-2 rounded-full"
+                    aria-label="Previous slide"
                   >
                     ❮
                   </button>
@@ -325,6 +340,7 @@ const Projects = () => {
                   <button
                     onClick={onClickHandler}
                     className="absolute right-4 top-1/2 z-10 transform -translate-y-1/2 bg-black bg-opacity-40 text-white p-2 rounded-full"
+                    aria-label="Next slide"
                   >
                     ❯
                   </button>
@@ -350,7 +366,7 @@ const Projects = () => {
                 >
                   {tech === "Three.js" ? (
                     <img
-                      src="../../public/assets/icons/threedotjs.svg"
+                      src={assetPrefix + "icons/threedotjs.svg"}
                       alt="Three.js"
                       className="w-5 h-5"
                     />

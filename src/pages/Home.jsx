@@ -64,24 +64,26 @@ const Home = React.memo(({ setActivePage }) => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  useEffect(() => {
+    if (!clickInfo) return;
+    const timer = setTimeout(() => setClickInfo(false), 3000);
+    return () => clearTimeout(timer);
+  }, [clickInfo]);
+
   const infoModal = useMemo(() => {
     if (!clickInfo) return null;
     return (
       <motion.div
-        className="fixed bottom-20 scroll-smooth left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg z-50"
-        initial={{ opacity: 0, x: -40 }}
-        animate={{ opacity: 1, x: 0 }}
+        className="fixed bottom-20 scroll-smooth left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg z-50 pointer-events-none"
+        initial={{ opacity: 0, x: "-50%", y: 20 }}
+        animate={{ opacity: 1, x: "-50%", y: 0 }}
+        exit={{ opacity: 0, x: "-50%", y: 20 }}
       >
-        <motion.p
-          className="text-sm"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        >
+        <p className="text-sm font-medium">
           click to see effect
-        </motion.p>
+        </p>
       </motion.div>
     );
-    setTimeout(() => setClickInfo(false), 3000);
   }, [clickInfo]);
 
   const ChatBotComponent = useMemo(
@@ -192,17 +194,17 @@ const Home = React.memo(({ setActivePage }) => {
           >
             <motion.button
               onMouseMove={(e) => {
-                const { offsetX, offsetY, target } = e.nativeEvent;
-                const x = (offsetX - target.offsetWidth / 2) / 5;
-                const y = (offsetY - target.offsetHeight / 2) / 5;
-                e.target.style.transform = `rotateX(${y}deg) rotateY(${-x}deg)`;
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = (e.clientX - rect.left - rect.width / 2) / 6;
+                const y = (e.clientY - rect.top - rect.height / 2) / 6;
+                e.currentTarget.style.transform = `perspective(500px) rotateX(${-y}deg) rotateY(${x}deg)`;
               }}
               onMouseLeave={(e) =>
-                (e.target.style.transform = "rotateX(0) rotateY(0)")
+                (e.currentTarget.style.transform = "perspective(500px) rotateX(0) rotateY(0)")
               }
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative flex items-center justify-center max-h-fit px-4 py-3 gap-2 rounded-2xl bg-gradient-to-r from-pink-600 to-red-600 text-white font-semibold shadow-lg"
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.96 }}
+              className="relative flex items-center justify-center max-h-fit px-4 py-3 gap-2 rounded-2xl bg-gradient-to-r from-pink-600 to-red-600 text-white font-semibold shadow-lg transition-transform"
               onClick={() => setActivePage("projects")}
             >
               <FaFolderOpen /> Projects
@@ -210,17 +212,17 @@ const Home = React.memo(({ setActivePage }) => {
 
             <motion.button
               onMouseMove={(e) => {
-                const { offsetX, offsetY, target } = e.nativeEvent;
-                const x = (offsetX - target.offsetWidth / 2) / 5;
-                const y = (offsetY - target.offsetHeight / 2) / 5;
-                e.target.style.transform = `rotateX(${y}deg) rotateY(${-x}deg)`;
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = (e.clientX - rect.left - rect.width / 2) / 6;
+                const y = (e.clientY - rect.top - rect.height / 2) / 6;
+                e.currentTarget.style.transform = `perspective(500px) rotateX(${-y}deg) rotateY(${x}deg)`;
               }}
               onMouseLeave={(e) =>
-                (e.target.style.transform = "rotateX(0) rotateY(0)")
+                (e.currentTarget.style.transform = "perspective(500px) rotateX(0) rotateY(0)")
               }
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative px-4 py-3 flex items-center justify-center gap-2 max-h-fit rounded-2xl bg-gradient-to-r from-pink-600 to-red-600 text-white font-semibold shadow-lg"
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.96 }}
+              className="relative px-4 py-3 flex items-center justify-center gap-2 max-h-fit rounded-2xl bg-gradient-to-r from-pink-600 to-red-600 text-white font-semibold shadow-lg transition-transform"
               onClick={() => setActivePage("contact")}
             >
               <FaEnvelope /> Contact Me
@@ -234,7 +236,8 @@ const Home = React.memo(({ setActivePage }) => {
         <div className="fixed bottom-6 right-6 z-50 w-[320px] sm:w-[360px] bg-white dark:bg-gray-800 shadow-2xl rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
           <button
             onClick={closeChat}
-            className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition"
+            className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition z-10"
+            aria-label="Close Chat"
           >
             <FaTimes size={18} />
           </button>
@@ -247,6 +250,7 @@ const Home = React.memo(({ setActivePage }) => {
         <button
           onClick={toggleChat}
           className="fixed bottom-6 right-6 z-40 bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg transition"
+          aria-label="Toggle Chat"
         >
           <FaComments size={20} />
         </button>
