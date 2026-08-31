@@ -11,13 +11,26 @@ class MessageParser {
       this.actionProvider.handleSkills();
     } else if (lower.includes("project")) {
       this.actionProvider.handleProjects();
-    } else if (lower.includes("service", "developed", "application development")) {
+    } else if (
+      lower.includes("service") ||
+      lower.includes("developed") ||
+      lower.includes("application development")
+    ) {
       this.actionProvider.handleServices();
-    } else if (lower.includes("collaborate", "collaboration") || lower.includes("optimize", "optimization")) {
+    } else if (
+      lower.includes("collaborate") ||
+      lower.includes("collaboration") ||
+      lower.includes("optimize") ||
+      lower.includes("optimization")
+    ) {
       this.actionProvider.handleCollaboration();
-    } else if (lower.includes("contact",) || lower.includes("phone")) {
+    } else if (lower.includes("contact") || lower.includes("phone")) {
       this.actionProvider.handleContact();
-    } else if (lower.includes("mail", "connect") || lower.includes("email")) {
+    } else if (
+      lower.includes("mail") ||
+      lower.includes("connect") ||
+      lower.includes("email")
+    ) {
       this.actionProvider.handleMail();
     } else {
       this.actionProvider.handleUnknown();

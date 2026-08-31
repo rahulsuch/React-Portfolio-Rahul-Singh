@@ -13,15 +13,27 @@ import { motion } from "framer-motion";
 import { useChat } from "../context/ChatContext"; // 👈 ADD THIS
 
 const Navbar = ({ activePage, setActivePage, setHoveredPage }) => {
-  const [isDark, setIsDark] = useState(
-    document.documentElement.classList.contains("dark")
-  );
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window === "undefined") return false;
+    const stored = localStorage.getItem("theme");
+    if (stored) return stored === "dark";
+    return document.documentElement.classList.contains("dark");
+  });
 
-  const { toggleChat } = useChat(); // 👈 for opening chatbot
+  const { toggleChat } = useChat();
 
   const toggleTheme = () => {
-    document.body.classList.toggle("dark");
-    setIsDark(!isDark);
+    const nextDark = !isDark;
+    setIsDark(nextDark);
+    if (nextDark) {
+      document.documentElement.classList.add("dark");
+      document.body.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      document.body.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
   };
 
   const links = [
@@ -40,6 +52,7 @@ const Navbar = ({ activePage, setActivePage, setHoveredPage }) => {
           onClick={toggleTheme}
           className="p-3 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
           title="Toggle Theme"
+          aria-label="Toggle Theme"
         >
           {isDark ? (
             <FaSun className="text-yellow-400 text-lg" />
@@ -55,8 +68,8 @@ const Navbar = ({ activePage, setActivePage, setHoveredPage }) => {
                 onClick={() => setActivePage(name)}
                 onMouseEnter={() => setHoveredPage(name)}
                 onMouseLeave={() => setHoveredPage(null)}
+                aria-label={`Navigate to ${name}`}
                 className={`flex flex-col items-center justify-center text-xs font-semibold tracking-wide transition-all duration-300 h-16 ${
-                  // fixed height prevents layout shift
                   activePage === name
                     ? "text-blue-600 dark:text-blue-400"
                     : "text-gray-500 dark:text-gray-300 hover:text-blue-500"
@@ -66,7 +79,6 @@ const Navbar = ({ activePage, setActivePage, setHoveredPage }) => {
                   whileHover={{ scale: 1.08 }}
                   transition={{ type: "spring", stiffness: 300 }}
                   className={`p-3 rounded-2xl ${
-                    // scale only the icon wrapper
                     activePage === name
                       ? "bg-blue-100 dark:bg-blue-900"
                       : "hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -75,7 +87,7 @@ const Navbar = ({ activePage, setActivePage, setHoveredPage }) => {
                 >
                   {icon}
                 </motion.div>
-                <span className="mt-1">{name}</span>
+                <span className="mt-1 capitalize">{name}</span>
               </button>
             </li>
           ))}
@@ -86,6 +98,7 @@ const Navbar = ({ activePage, setActivePage, setHoveredPage }) => {
             href="https://www.linkedin.com/in/rahul-singh-public-profile"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="LinkedIn Profile"
             className="text-gray-500 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-400 transition-transform transform hover:scale-110"
           >
             <FaLinkedin size={22} />
@@ -100,6 +113,7 @@ const Navbar = ({ activePage, setActivePage, setHoveredPage }) => {
             key={name}
             onClick={() => setActivePage(name)}
             whileTap={{ scale: 0.9 }}
+            aria-label={`Navigate to ${name}`}
             className={`flex flex-col items-center text-[10px] font-semibold ${
               activePage === name
                 ? "text-blue-600 dark:text-blue-400"
@@ -115,41 +129,39 @@ const Navbar = ({ activePage, setActivePage, setHoveredPage }) => {
             >
               {icon}
             </div>
-            <span className="mt-0.5">{name}</span>
+            <span className="mt-0.5 capitalize">{name}</span>
           </motion.button>
         ))}
 
         {/* 🌙 Theme Toggle (Mobile) */}
-        {activePage === "home" && (
-          <>
-            <motion.button
-              onClick={toggleTheme}
-              whileTap={{ scale: 0.9 }}
-              className="flex flex-col items-center text-[10px] font-semibold text-gray-500 dark:text-gray-300 hover:text-blue-600"
-            >
-              <div className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
+        <motion.button
+          onClick={toggleTheme}
+          whileTap={{ scale: 0.9 }}
+          aria-label="Toggle Theme"
+          className="flex flex-col items-center text-[10px] font-semibold text-gray-500 dark:text-gray-300 hover:text-blue-600"
+        >
+          <div className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
             {isDark ? (
-                  <FaSun className="text-yellow-400" />
-                ) : (
-                  <FaMoon className="text-gray-600" />
-                )}
-              </div>
-              <span className="mt-0.5">theme</span>
-            </motion.button>
+              <FaSun className="text-yellow-400" />
+            ) : (
+              <FaMoon className="text-gray-600" />
+            )}
+          </div>
+          <span className="mt-0.5">Theme</span>
+        </motion.button>
 
-            {/* 💬 Chatbot Button */}
-            <motion.button
-              onClick={toggleChat}
-              whileTap={{ scale: 0.9 }}
-              className="flex flex-col items-center text-[10px] font-semibold text-gray-500 dark:text-gray-300 hover:text-blue-600"
-            >
-              <div className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
-                <FaComments />
-              </div>
-              <span className="mt-0.5">chat</span>
-            </motion.button>
-          </>
-        )}
+        {/* 💬 Chatbot Button (Mobile) */}
+        <motion.button
+          onClick={toggleChat}
+          whileTap={{ scale: 0.9 }}
+          aria-label="Open Chat"
+          className="flex flex-col items-center text-[10px] font-semibold text-gray-500 dark:text-gray-300 hover:text-blue-600"
+        >
+          <div className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
+            <FaComments />
+          </div>
+          <span className="mt-0.5">Chat</span>
+        </motion.button>
       </div>
     </>
   );
